@@ -1,0 +1,127 @@
+<!-- initial upper panel -->
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hw8Fall2017</title>
+    <!--bootstrap 3.3.7-->
+    <!--<link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--toggle switch-->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <!--my css-->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--angularJS-->
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+    <script src="lib/angular/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <!-- AngularJS Material -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+    <!-- AngularJS Material Javascript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+
+    <!--my js files-->
+    <script src="js/myApp.js"></script>
+    <script src="js/myControllers.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<body>
+
+<!--FB SDK init-->
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId            : '358250471284151',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v2.11'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="container-fluid">
+    <div class="row pt-1">
+        <div class="col-lg-10 col-lg-offset-1 col-xs-12">
+
+            <section class="well sec" ng-controller="formController">
+                <h4 class="text-center">Stock Market Search</h4>
+                <form class="form-group">
+                    <div class="row align-items-center">
+                        <label class="col-sm-3">
+                            <strong class="f14">Enter Stock Ticker Symbol:<span class="text-danger ">*</span></strong>
+                        </label>
+                        <div class="col-sm-6 mb-1" ng-model-options="{debounce: 400}"> <!-- bind with ng-model: input -->
+                            <!--<input class="form-control symbol_input mr-1" type="text" placeholder="e.g. AAPL" ng-model="input">-->
+                            <md-autocomplete
+                                    md-no-cache="true"
+                                    md-search-text="searchText"
+                                    md-items="item in query(searchText)"
+                                    md-item-text="item['Symbol']"
+                                    md-min-length="0"
+                                    placeholder="e.g. AAPL"
+                                    md-min-length="1"
+                                    layout-xs="20"
+                                    class="inputwrapper"
+                                    >
+                                <md-item-template>
+                                    <span>{{item["Symbol"] + " - " + item["Name"] + " (" + item["Exchange"] + ")"}}</span>
+                                </md-item-template>
+                                <!--<md-not-found>-->
+                                    <!--No states matching "{{searchText}}" were found.-->
+                                <!--</md-not-found>-->
+                            </md-autocomplete>
+
+                            <div class="col-xs-12" ng-show="empty()">Please enter a stock ticker symbol.</div>
+
+                        </div>
+                        <div class="col-sm-3 text-left">
+                            <!--<div class="row">-->
+                                <a class="btn btn-sm btn-primary col-sm-5 mr-1" href="#!/charts/{{searchText}}" ng-class="{'disabled': !searchText}">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                     Get Quote
+                                </a>
+                                <a class="btn btn-sm btn-default col-sm-4" href="#!/list" ng-click="clear()"><span class="glyphicon glyphicon-refresh"></span> Clear</a>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <hr>
+
+            <section class="well sec lower-sec">
+                <div id="view" ng-class="{'view-animation': !showList, 'view-animation-reverse': showList}" ng-view>
+
+                    <!--Units container here-->
+
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- bootstrap js-->
+<script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<!--toggle switch-->
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<!--moment-timezone-->
+<!--<script src="lib/moment-timezone.min.js"></script>-->
+<script src="lib/Highstock-6.0.2/code/highstock.js"></script>
+<script src="lib/Highstock-6.0.2/code/modules/exporting.js"></script>
+</body>
+</html>

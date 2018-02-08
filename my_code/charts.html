@@ -1,0 +1,49 @@
+<!-- the Stock Details (lower) panel -->
+<div class="panel panel-default">
+    <div class="panel-heading pt-1 pb-1">
+        <div class="row">
+            <div class="col-xs-2 text-left">
+                <a class="btn btn-default" href="#">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="col-xs-10 col-xs-pull-1 text-center">
+                <strong class="panel-title">Stock Details</strong>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" ng-controller="detailsController">
+
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" ng-click="changeDetailsURL('units/current.html')">
+                        <span class="glyphicon glyphicon-dashboard"></span>
+                        <span class="hidden-xs">Current Stock</span>
+                        <div class="visible-xs">Stock</div>
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" ng-click="changeDetailsURL('units/historical.html')">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    <span class="hidden-xs">Historical Charts</span>
+                    <span class="visible-xs">Charts</span>
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" ng-click="changeDetailsURL('units/news.html')">
+                    <span class="glyphicon glyphicon-link"></span>
+                    <span class="hidden-xs">News Feeds</span>
+                    <span class="visible-xs">News</span>
+                </a>
+            </li>
+        </ul>
+
+        <hr>
+
+        <div class="row details-show-hide" ng-include="details"> <!-- ng-include: URL -->
+
+            <!-- panel beneath hr -->
+
+        </div>
+    </div>
+</div>

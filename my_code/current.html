@@ -1,0 +1,118 @@
+<!-- Current Stock Unit of Charts-->
+<div class="col-xs-12 col-sm-6">
+    <div class="panel-title col-xs-6 col-sm-4"><strong>Stock Details</strong></div>
+    <div class="col-xs-6 col-sm-8 text-right">
+        <button class="btn btn-default detail-control mb-2" ng-click="favToggle()" ng-disabled="!chartReady[showing]">
+            <span class="glyphicon glyphicon-star fav-star" ng-show="favStatus"></span>
+            <span class="glyphicon glyphicon-star-empty empty-star" ng-hide="favStatus"></span>
+        </button>
+        <button class="btn btn-default detail-control mb-2" ng-disabled="!chartReady[showing]" ng-click="fbshare()">
+            <img class="fb" src="http://cs-server.usc.edu:45678/hw/hw8/images/facebook.png">
+        </button>
+    </div>
+
+    <!--progress bar-->
+    <div class="col-xs-12" style="margin-top: 8em" ng-hide="price||failure['price']">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active progress-width" role="progressbar"></div>
+        </div>
+    </div>
+    <!--error msg-->
+    <div class="alert alert-danger" style="margin-top: 11.9em" ng-show="failure[showing]">
+        Error! Fail to get current stock data.
+    </div>
+
+    <table class="table table-striped col-xs-12" ng-show="price">
+        <tr>
+            <td><strong>Stock Ticker Symbol</strong></td>
+            <td>{{symbol}}</td>
+        </tr>
+        <tr>
+            <td><strong>Last Price</strong></td>
+            <td>{{lastPrice["4. close"].slice(0, -2)}}</td>
+        </tr>
+        <tr>
+            <td><strong>Change (Change Percent)</strong></td>
+            <td style="color: {{changeColor}};">{{change.toFixed(2)}} ({{(changePercent*100).toFixed(2)}}%)<img class="arrow-img" src="{{arrowURL}}"></td>
+        </tr>
+        <tr>
+            <td><strong>Timestamp</strong></td>
+            <td>{{lastTimeStamp}}</td>
+        </tr>
+        <tr>
+            <td><strong>Open</strong></td>
+            <td>{{lastPrice["1. open"].slice(0, -2)}}</td>
+        </tr>
+        <tr>
+            <td><strong>Previous Close</strong></td>
+            <td>{{previousClose.slice(0, -2)}}</td>
+        </tr>
+        <tr>
+            <td><strong>Day's Range</strong></td>
+            <td>{{lastPrice["3. low"].slice(0, -2)}} - {{lastPrice["2. high"].slice(0, -2)}}</td>
+        </tr>
+        <tr>
+            <td><strong>Volume</strong></td>
+            <td>{{formattedVolume}}</td>
+        </tr>
+    </table>
+</div>
+<div class="col-xs-12 col-sm-6">
+    <ul class="nav nav-tabs">
+        <li ng-class="{'active': showing === 'price'}">
+            <a data-toggle="tab" ng-click="showChart('price')">Price</a>
+        </li>
+        <li ng-class="{'active': showing === 'SMA'}">
+            <a data-toggle="tab" ng-click="showChart('SMA')">SMA</a>
+        </li>
+        <li ng-class="{'active': showing === 'EMA'}">
+            <a data-toggle="tab" ng-click="showChart('EMA')">EMA</a>
+        </li>
+        <li ng-class="{'active': showing === 'STOCH'}">
+            <a data-toggle="tab" ng-click="showChart('STOCH')">STOCH</a>
+        </li>
+        <li ng-class="{'active': showing === 'RSI'}">
+            <a data-toggle="tab" ng-click="showChart('RSI')">RSI</a>
+        </li>
+        <li ng-class="{'active': showing === 'ADX'}">
+            <a data-toggle="tab" ng-click="showChart('ADX')">ADX</a>
+        </li>
+        <li ng-class="{'active': showing === 'CCI'}">
+            <a data-toggle="tab" ng-click="showChart('CCI')">CCI</a>
+        </li>
+        <li ng-class="{'active': showing === 'BBANDS'}">
+            <a data-toggle="tab" ng-click="showChart('BBANDS')">BBANDS</a>
+        </li>
+        <li ng-class="{'active': showing === 'MACD'}">
+            <a data-toggle="tab" ng-click="showChart('MACD')">MACD</a>
+        </li>
+        <hr>
+    </ul>
+
+    <!--progress bar-->
+    <div class="col-xs-12" style="margin-top: 6em" ng-hide="chartReady[showing]||failure[showing]">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active progress-width" role="progressbar"></div>
+        </div>
+    </div>
+    <!--error msg-->
+    <div class="alert alert-danger" style="margin-top: 6em" ng-show="failure['price']">
+        Error! Fail to get {{showing}} data.
+    </div>
+
+    <!-- indicator containers-->
+    <div class="row">
+        <div class="col-xs-12 chart-show-hide" id="price" ng-show="showing === 'price'"></div>
+        <div class="col-xs-12 chart-show-hide" id="SMA" ng-show="showing === 'SMA'"></div>
+        <div class="col-xs-12 chart-show-hide" id="EMA" ng-show="showing === 'EMA'"></div>
+        <div class="col-xs-12 chart-show-hide" id="STOCH" ng-show="showing === 'STOCH'"></div>
+        <div class="col-xs-12 chart-show-hide" id="RSI" ng-show="showing === 'RSI'"></div>
+        <div class="col-xs-12 chart-show-hide" id="ADX" ng-show="showing === 'ADX'"></div>
+        <div class="col-xs-12 chart-show-hide" id="CCI" ng-show="showing === 'CCI'"></div>
+        <div class="col-xs-12 chart-show-hide" id="BBANDS" ng-show="showing === 'BBANDS'"></div>
+        <div class="col-xs-12 chart-show-hide" id="MACD" ng-show="showing === 'MACD'"></div>
+    </div>
+
+</div>
+
+        
